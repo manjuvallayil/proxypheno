@@ -1,0 +1,47 @@
+{
+  "table": [
+    {
+      "VARIANT": "CONTROL",
+      "count": 526,
+      "mean": 198.42300380228136,
+      "std": 28.08089103368517,
+      "pct_vs_control": 0.0
+    },
+    {
+      "VARIANT": "FGD4",
+      "count": 22,
+      "mean": 183.11363636363637,
+      "std": 31.244783114329216,
+      "pct_vs_control": -7.715520451398872
+    },
+    {
+      "VARIANT": "DPF2/MUS81",
+      "count": 11,
+      "mean": 199.45454545454547,
+      "std": 11.483585122805826,
+      "pct_vs_control": 0.519869991128652
+    },
+    {
+      "VARIANT": "PLCD4",
+      "count": 9,
+      "mean": 147.11111111111111,
+      "std": 18.582212223282543,
+      "pct_vs_control": -25.859850777332237
+    }
+  ],
+  "summary": {
+    "variant": "PLCD4",
+    "n_carriers": 9,
+    "n_controls": 526,
+    "carrier_mean_weight": 147.11111111111111,
+    "control_mean_weight": 198.42300380228136,
+    "mean_difference": -51.31189269117024,
+    "difference_ci_low": -62.29477978453738,
+    "difference_ci_high": -39.36897708069291,
+    "pct_vs_control": -25.859850777332237,
+    "control_mean_ci": [
+      196.0748336501901,
+      200.95636882129278
+    ]
+  }
+}

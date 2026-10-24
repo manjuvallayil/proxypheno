@@ -1,0 +1,36 @@
+{
+  "n_animals": 80027,
+  "n_traits_total": 19,
+  "n_traits_novelty": 16,
+  "excluded_traits": [
+    "adaptability_milking",
+    "farmer_opinion",
+    "shed_temperament"
+  ],
+  "n_signatures": 22,
+  "n_diffuse": 76652,
+  "signature_threshold_z": 3.0,
+  "novelty_stability": {
+    "mean_spearman": 0.9876544427822374,
+    "sd_spearman": 0.0009373366288310311,
+    "mean_top5_jaccard": 0.7826110186108,
+    "n_boot": 10
+  },
+  "top5_novelty_threshold": 0.9462231496869806,
+  "positive_control": {
+    "variant": "PLCD4",
+    "n_carriers": 9,
+    "n_controls": 526,
+    "carrier_mean_weight": 147.11111111111111,
+    "control_mean_weight": 198.42300380228136,
+    "mean_difference": -51.31189269117024,
+    "difference_ci_low": -62.29477978453738,
+    "difference_ci_high": -39.36897708069291,
+    "pct_vs_control": -25.859850777332237,
+    "control_mean_ci": [
+      196.0748336501901,
+      200.95636882129278
+    ]
+  },
+  "data_note": "Phenotypes are pre-adjusted yield deviations. Known QTL effects are attenuated in this deposit; the prospective calf study is the clean positive control."
+}

@@ -1,0 +1,385 @@
+{
+  "signatures": {
+    "low_dairy_conformation": {
+      "signature": "low_dairy_conformation",
+      "n": 297,
+      "summary": "297 animals share a low dairy_conformation residual signature (mean novelty score 0.94). The most distinctive traits are dairy_conformation, capacity, rump_width. The strongest carrier enrichment in this signature is 1.3 (q=0.56). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_dairy_conformation",
+        "n": 297,
+        "novelty_mean": 0.94,
+        "top_traits": "dairy_conformation, capacity, rump_width",
+        "max_carrier_enrichment": 1.3,
+        "min_q_value": 0.56,
+        "top_mutation": "mut_04"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_rear_teat_placement": {
+      "signature": "high_rear_teat_placement",
+      "n": 266,
+      "summary": "266 animals share a high rear_teat_placement residual signature (mean novelty score 0.92). The most distinctive traits are rear_teat_placement, front_teat_placement, udder_overall. The strongest carrier enrichment in this signature is 1.51 (q=0.0808). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_rear_teat_placement",
+        "n": 266,
+        "novelty_mean": 0.92,
+        "top_traits": "rear_teat_placement, front_teat_placement, udder_overall",
+        "max_carrier_enrichment": 1.51,
+        "min_q_value": 0.0808,
+        "top_mutation": "mut_07"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_bcs": {
+      "signature": "high_bcs",
+      "n": 255,
+      "summary": "255 animals share a high bcs residual signature (mean novelty score 0.92). The most distinctive traits are bcs, bodyweight, stature. The strongest carrier enrichment in this signature is 0.48 (q=0.1814). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_bcs",
+        "n": 255,
+        "novelty_mean": 0.92,
+        "top_traits": "bcs, bodyweight, stature",
+        "max_carrier_enrichment": 0.48,
+        "min_q_value": 0.1814,
+        "top_mutation": "mut_12"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_udder_overall": {
+      "signature": "low_udder_overall",
+      "n": 219,
+      "summary": "219 animals share a low udder_overall residual signature (mean novelty score 0.92). The most distinctive traits are udder_overall, udder_support, front_udder. The strongest carrier enrichment in this signature is 0.65 (q=0.6546). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_udder_overall",
+        "n": 219,
+        "novelty_mean": 0.92,
+        "top_traits": "udder_overall, udder_support, front_udder",
+        "max_carrier_enrichment": 0.65,
+        "min_q_value": 0.6546,
+        "top_mutation": "mut_09"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_rump_angle": {
+      "signature": "high_rump_angle",
+      "n": 207,
+      "summary": "207 animals share a high rump_angle residual signature (mean novelty score 0.95). The most distinctive traits are rump_angle, dairy_conformation, capacity. The strongest carrier enrichment in this signature is 1.64 (q=0.08). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_rump_angle",
+        "n": 207,
+        "novelty_mean": 0.95,
+        "top_traits": "rump_angle, dairy_conformation, capacity",
+        "max_carrier_enrichment": 1.64,
+        "min_q_value": 0.08,
+        "top_mutation": "mut_07"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_front_teat_placement": {
+      "signature": "high_front_teat_placement",
+      "n": 201,
+      "summary": "201 animals share a high front_teat_placement residual signature (mean novelty score 0.98). The most distinctive traits are front_teat_placement, rear_teat_placement, udder_overall. The strongest carrier enrichment in this signature is 1.29 (q=0.581). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_front_teat_placement",
+        "n": 201,
+        "novelty_mean": 0.98,
+        "top_traits": "front_teat_placement, rear_teat_placement, udder_overall",
+        "max_carrier_enrichment": 1.29,
+        "min_q_value": 0.581,
+        "top_mutation": "mut_06"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_legs": {
+      "signature": "low_legs",
+      "n": 199,
+      "summary": "199 animals share a low legs residual signature (mean novelty score 0.95). The most distinctive traits are legs, dairy_conformation, capacity. The strongest carrier enrichment in this signature is 2.09 (q=0.006). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_legs",
+        "n": 199,
+        "novelty_mean": 0.95,
+        "top_traits": "legs, dairy_conformation, capacity",
+        "max_carrier_enrichment": 2.09,
+        "min_q_value": 0.006,
+        "top_mutation": "mut_01"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_stature": {
+      "signature": "high_stature",
+      "n": 194,
+      "summary": "194 animals share a high stature residual signature (mean novelty score 0.84). The most distinctive traits are stature, bodyweight, bcs. The strongest carrier enrichment in this signature is 0.69 (q=0.174). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_stature",
+        "n": 194,
+        "novelty_mean": 0.84,
+        "top_traits": "stature, bodyweight, bcs",
+        "max_carrier_enrichment": 0.69,
+        "min_q_value": 0.174,
+        "top_mutation": "mut_08"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_stature": {
+      "signature": "low_stature",
+      "n": 185,
+      "summary": "185 animals share a low stature residual signature (mean novelty score 0.91). The most distinctive traits are stature, bodyweight, bcs. The strongest carrier enrichment in this signature is 1.35 (q=0.708). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_stature",
+        "n": 185,
+        "novelty_mean": 0.91,
+        "top_traits": "stature, bodyweight, bcs",
+        "max_carrier_enrichment": 1.35,
+        "min_q_value": 0.708,
+        "top_mutation": "mut_09"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_front_udder": {
+      "signature": "high_front_udder",
+      "n": 166,
+      "summary": "166 animals share a high front_udder residual signature (mean novelty score 0.94). The most distinctive traits are front_udder, udder_overall, udder_support. The strongest carrier enrichment in this signature is 1.5 (q=0.5705). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_front_udder",
+        "n": 166,
+        "novelty_mean": 0.94,
+        "top_traits": "front_udder, udder_overall, udder_support",
+        "max_carrier_enrichment": 1.5,
+        "min_q_value": 0.5705,
+        "top_mutation": "mut_05"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_legs": {
+      "signature": "high_legs",
+      "n": 159,
+      "summary": "159 animals share a high legs residual signature (mean novelty score 0.91). The most distinctive traits are legs, milk, dairy_conformation. The strongest carrier enrichment in this signature is 1.92 (q=0.174). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_legs",
+        "n": 159,
+        "novelty_mean": 0.91,
+        "top_traits": "legs, milk, dairy_conformation",
+        "max_carrier_enrichment": 1.92,
+        "min_q_value": 0.174,
+        "top_mutation": "mut_10"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_capacity": {
+      "signature": "high_capacity",
+      "n": 151,
+      "summary": "151 animals share a high capacity residual signature (mean novelty score 0.94). The most distinctive traits are capacity, dairy_conformation, rump_angle. The strongest carrier enrichment in this signature is 1.4 (q=0.5378). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_capacity",
+        "n": 151,
+        "novelty_mean": 0.94,
+        "top_traits": "capacity, dairy_conformation, rump_angle",
+        "max_carrier_enrichment": 1.4,
+        "min_q_value": 0.5378,
+        "top_mutation": "mut_07"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_udder_support": {
+      "signature": "high_udder_support",
+      "n": 119,
+      "summary": "119 animals share a high udder_support residual signature (mean novelty score 0.96). The most distinctive traits are udder_support, udder_overall, rear_teat_placement. The strongest carrier enrichment in this signature is 1.57 (q=0.174). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_udder_support",
+        "n": 119,
+        "novelty_mean": 0.96,
+        "top_traits": "udder_support, udder_overall, rear_teat_placement",
+        "max_carrier_enrichment": 1.57,
+        "min_q_value": 0.174,
+        "top_mutation": "mut_08"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_rump_angle": {
+      "signature": "low_rump_angle",
+      "n": 118,
+      "summary": "118 animals share a low rump_angle residual signature (mean novelty score 0.94). The most distinctive traits are rump_angle, dairy_conformation, capacity. The strongest carrier enrichment in this signature is 1.77 (q=0.174). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_rump_angle",
+        "n": 118,
+        "novelty_mean": 0.94,
+        "top_traits": "rump_angle, dairy_conformation, capacity",
+        "max_carrier_enrichment": 1.77,
+        "min_q_value": 0.174,
+        "top_mutation": "mut_04"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_rump_width": {
+      "signature": "low_rump_width",
+      "n": 76,
+      "summary": "76 animals share a low rump_width residual signature (mean novelty score 0.94). The most distinctive traits are rump_width, milk, capacity. The strongest carrier enrichment in this signature is 2.77 (q=0.043). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_rump_width",
+        "n": 76,
+        "novelty_mean": 0.94,
+        "top_traits": "rump_width, milk, capacity",
+        "max_carrier_enrichment": 2.77,
+        "min_q_value": 0.043,
+        "top_mutation": "mut_05"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_capacity": {
+      "signature": "low_capacity",
+      "n": 72,
+      "summary": "72 animals share a low capacity residual signature (mean novelty score 0.95). The most distinctive traits are capacity, dairy_conformation, legs. The strongest carrier enrichment in this signature is 0.0 (q=0.1122). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_capacity",
+        "n": 72,
+        "novelty_mean": 0.95,
+        "top_traits": "capacity, dairy_conformation, legs",
+        "max_carrier_enrichment": 0.0,
+        "min_q_value": 0.1122,
+        "top_mutation": "mut_11"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_bodyweight": {
+      "signature": "high_bodyweight",
+      "n": 70,
+      "summary": "70 animals share a high bodyweight residual signature (mean novelty score 0.91). The most distinctive traits are bodyweight, stature, bcs. The strongest carrier enrichment in this signature is 1.98 (q=0.4959). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_bodyweight",
+        "n": 70,
+        "novelty_mean": 0.91,
+        "top_traits": "bodyweight, stature, bcs",
+        "max_carrier_enrichment": 1.98,
+        "min_q_value": 0.4959,
+        "top_mutation": "mut_12"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_rear_teat_placement": {
+      "signature": "low_rear_teat_placement",
+      "n": 63,
+      "summary": "63 animals share a low rear_teat_placement residual signature (mean novelty score 0.95). The most distinctive traits are rear_teat_placement, front_teat_placement, udder_support. The strongest carrier enrichment in this signature is 2.82 (q=0.0581). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_rear_teat_placement",
+        "n": 63,
+        "novelty_mean": 0.95,
+        "top_traits": "rear_teat_placement, front_teat_placement, udder_support",
+        "max_carrier_enrichment": 2.82,
+        "min_q_value": 0.0581,
+        "top_mutation": "mut_07"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "high_rump_width": {
+      "signature": "high_rump_width",
+      "n": 51,
+      "summary": "51 animals share a high rump_width residual signature (mean novelty score 0.95). The most distinctive traits are rump_width, dairy_conformation, udder_support. The strongest carrier enrichment in this signature is 4.32 (q=0.0361). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "high_rump_width",
+        "n": 51,
+        "novelty_mean": 0.95,
+        "top_traits": "rump_width, dairy_conformation, udder_support",
+        "max_carrier_enrichment": 4.32,
+        "min_q_value": 0.0361,
+        "top_mutation": "mut_07"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_bcs": {
+      "signature": "low_bcs",
+      "n": 49,
+      "summary": "49 animals share a low bcs residual signature (mean novelty score 0.89). The most distinctive traits are bcs, bodyweight, stature. The strongest carrier enrichment in this signature is 2.27 (q=0.5378). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_bcs",
+        "n": 49,
+        "novelty_mean": 0.89,
+        "top_traits": "bcs, bodyweight, stature",
+        "max_carrier_enrichment": 2.27,
+        "min_q_value": 0.5378,
+        "top_mutation": "mut_03"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_front_teat_placement": {
+      "signature": "low_front_teat_placement",
+      "n": 43,
+      "summary": "43 animals share a low front_teat_placement residual signature (mean novelty score 0.95). The most distinctive traits are front_teat_placement, rear_teat_placement, bcs. The strongest carrier enrichment in this signature is 0.25 (q=0.6546). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_front_teat_placement",
+        "n": 43,
+        "novelty_mean": 0.95,
+        "top_traits": "front_teat_placement, rear_teat_placement, bcs",
+        "max_carrier_enrichment": 0.25,
+        "min_q_value": 0.6546,
+        "top_mutation": "mut_05"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    },
+    "low_fat": {
+      "signature": "low_fat",
+      "n": 30,
+      "summary": "30 animals share a low fat residual signature (mean novelty score 0.96). The most distinctive traits are fat, protein, milk. The strongest carrier enrichment in this signature is 4.71 (q=0.0808). This is a discovery-support signal, not a diagnosis.",
+      "evidence": {
+        "signature": "low_fat",
+        "n": 30,
+        "novelty_mean": 0.96,
+        "top_traits": "fat, protein, milk",
+        "max_carrier_enrichment": 4.71,
+        "min_q_value": 0.0808,
+        "top_mutation": "mut_06"
+      },
+      "suggested_follow_up": "Review carrier status for the prioritised loci, check data quality for the distinctive traits, and compare against held-out animals.",
+      "limitations": "Phenotypes are pre-adjusted yield deviations; the analysis is observational and does not establish causality. Known QTL effects are attenuated in this deposit."
+    }
+  },
+  "memo": {
+    "title": "ProxyPheno signature summary",
+    "n_animals": 80027,
+    "n_traits_novelty": 16,
+    "n_signatures": 22,
+    "largest_signature": "low_dairy_conformation",
+    "stability": {
+      "mean_spearman": 0.9876544427822374,
+      "sd_spearman": 0.0009373366288310311,
+      "mean_top5_jaccard": 0.7826110186108,
+      "n_boot": 10
+    },
+    "positive_control": {
+      "variant": "PLCD4",
+      "n_carriers": 9,
+      "n_controls": 526,
+      "carrier_mean_weight": 147.11111111111111,
+      "control_mean_weight": 198.42300380228136,
+      "mean_difference": -51.31189269117024,
+      "difference_ci_low": -62.29477978453738,
+      "difference_ci_high": -39.36897708069291,
+      "pct_vs_control": -25.859850777332237,
+      "control_mean_ci": [
+        196.0748336501901,
+        200.95636882129278
+      ]
+    },
+    "note": "Generated from structured signature summaries. All numbers are injected from the pipeline; no values are generated by a language model."
+  }
+}

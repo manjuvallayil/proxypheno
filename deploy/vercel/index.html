@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ProxyPheno - novel phenotypes from routine dairy data</title>
+    <meta
+      name="description"
+      content="An ML proxy-phenotype engine for novel trait discovery in dairy cattle, built on the data behind Reynolds et al. 2021 (Nature Genetics)."
+    />
+    <style>
+      :root {
+        --ink: #12212f;
+        --muted: #5b6b7a;
+        --line: #d9e1e8;
+        --bg: #f7f9fb;
+        --accent: #1f6f5c;
+        --accent-2: #3b6ea5;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.55;
+      }
+      a { color: var(--accent); }
+      header, section { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+      .hero { padding: 88px 24px 56px; }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px; color: var(--accent); font-weight: 700; }
+      h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.08; margin: 14px 0 18px; letter-spacing: -0.02em; }
+      h2 { font-size: clamp(24px, 3vw, 34px); margin: 0 0 14px; letter-spacing: -0.01em; }
+      h3 { font-size: 18px; margin: 0 0 8px; }
+      p { margin: 0 0 16px; color: var(--muted); }
+      .lead { font-size: 20px; color: var(--ink); max-width: 760px; }
+      .buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+      .btn { display: inline-block; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+      .btn-primary { background: var(--accent); color: white; }
+      .btn-secondary { border: 1px solid var(--line); background: white; color: var(--ink); }
+      .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      .card { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+      .card p { margin: 0; }
+      .stat { font-size: 34px; font-weight: 700; color: var(--accent); }
+      section { padding-top: 56px; padding-bottom: 56px; border-top: 1px solid var(--line); }
+      .figure { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+      .figure img { width: 100%; height: auto; border-radius: 6px; }
+      .caption { font-size: 13px; color: var(--muted); margin-top: 10px; }
+      .steps { counter-reset: step; display: grid; gap: 16px; }
+      .step { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+      .step::before {
+        counter-increment: step;
+        content: counter(step);
+        width: 32px; height: 32px; border-radius: 50%;
+        background: var(--accent); color: white;
+        display: grid; place-items: center; font-weight: 700; font-size: 14px;
+      }
+      footer { max-width: 1040px; margin: 0 auto; padding: 32px 24px 64px; color: var(--muted); font-size: 13px; }
+      code { background: #eef3f6; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+      .note { border-left: 3px solid var(--accent-2); padding: 12px 16px; background: #eef4fa; border-radius: 0 8px 8px 0; color: var(--ink); }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="eyebrow">Proof of concept</div>
+      <h1>Every routine measurement is a potential new phenotype.</h1>
+      <p class="lead">
+        ProxyPheno learns the joint distribution of routine dairy phenotypes, scores how
+        unexpected each animal's profile is, and turns coherent outliers into candidate
+        phenotypes for breeding and animal-health teams.
+      </p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="#demo">Launch the demo</a>
+        <a class="btn btn-secondary" href="#results">See the results</a>
+        <a class="btn btn-secondary" href="#report">Read the report</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>The problem</h2>
+      <p>
+        The traits that matter most - health, resilience, welfare, emissions - are expensive
+        or impossible to measure at population scale. Meanwhile, LIC already generates
+        millions of routine measurements. The gap is not data volume; it is turning routine
+        signal into traits that can be acted on.
+      </p>
+      <div class="grid">
+        <div class="card"><div class="stat">80,027</div><p>New Zealand dairy animals in the discovery set.</p></div>
+        <div class="card"><div class="stat">19</div><p>Routine growth, production and conformation traits.</p></div>
+        <div class="card"><div class="stat">22</div><p>Interpretable dominant-trait signatures, with 0.988 bootstrap stability.</p></div>
+        <div class="card"><div class="stat">-25.9%</div><p>Bodyweight effect for PLCD4 carriers in the calf study - a real positive control.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Approach</h2>
+      <div class="steps">
+        <div class="step"><div><h3>Conditional residuals</h3><p>For each trait, predict it from the rest of the animal's profile and keep the residual. This is the proxy-phenotype signal.</p></div></div>
+        <div class="step"><div><h3>Novelty scoring</h3><p>PCA-space Mahalanobis distance plus IsolationForest, combined into a calibrated percentile score.</p></div></div>
+        <div class="step"><div><h3>Signature groups</h3><p>HDBSCAN found no density-separated clusters, so animals are grouped by their dominant residual trait and direction. That is honest and interpretable.</p></div></div>
+        <div class="step"><div><h3>Honest baseline comparison</h3><p>Ridge, LightGBM and an MLP use identical splits. The linear baseline is strong; ML adds a modest but consistent gain.</p></div></div>
+        <div class="step"><div><h3>Known-locus validation</h3><p>Test whether signatures and trait tails enrich for carriers of the paper's prioritised recessive mutations, with Benjamini-Hochberg control.</p></div></div>
+        <div class="step"><div><h3>Grounded translation</h3><p>Precomputed briefs narrate structured results. Numbers are injected, never generated.</p></div></div>
+      </div>
+    </section>
+
+    <section id="results">
+      <h2>Results</h2>
+      <div class="grid">
+        <div class="figure">
+          <img src="/figures/pca_novelty.png" alt="Residual phenotype space coloured by novelty" />
+          <div class="caption">Residual phenotype space. Each point is an animal; colour is the novelty score. The space is a single continuum, not discrete clusters.</div>
+        </div>
+        <div class="figure">
+          <img src="/figures/calf_positive_control.png" alt="Calf study carrier weights" />
+          <div class="caption">Positive control: PLCD4 carriers weigh 25.9% less than controls (147.1 vs 198.4 kg; 95% CI -62.3 to -39.4 kg), matching the published effect.</div>
+        </div>
+        <div class="figure">
+          <img src="/figures/signature_counts.png" alt="Signature group sizes" />
+          <div class="caption">Dominant-trait signatures. Each animal is labelled by the trait with the largest conditional residual (|z| >= 3), or diffuse.</div>
+        </div>
+        <div class="figure">
+          <img src="/figures/tail_enrichment.png" alt="Known-locus tail enrichment" />
+          <div class="caption">Known-locus recovery: the chr14 casein region is strongly enriched in milk and protein tails (q < 1e-100), including within breed.</div>
+        </div>
+        <div class="figure">
+          <img src="/figures/model_comparison.png" alt="Mean R2 by model" />
+          <div class="caption">Proxy-prediction on an identical 80/20 split: LightGBM mean R² 0.488, MLP 0.481, Ridge 0.479. LightGBM wins on 14 of 16 traits, but the linear baseline is already strong.</div>
+        </div>
+      </div>
+      <p class="note">
+        Discovery-support, not diagnosis. The pipeline ranks hypotheses for the genetics and
+        animal-health teams; it does not establish causality.
+      </p>
+    </section>
+
+    <section id="demo">
+      <h2>Live demo</h2>
+      <p>
+        Explore animal-level novelty scores, signature profiles and grounded briefs.
+        The demo reads precomputed artifacts, so it loads quickly.
+      </p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="https://github.com/manjuvallayil/proxypheno/tree/main/deploy/hf_space">Open the prepared demo app</a>
+        <a class="btn btn-secondary" href="https://github.com/manjuvallayil/proxypheno">View the code</a>
+      </div>
+      <p class="caption">The demo reads precomputed artifacts and makes no live model calls. A hosted URL is added once the free-tier deployment is connected.</p>
+    </section>
+
+    <section id="report">
+      <h2>Report and walkthrough</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Technical report</h3>
+          <p>Method, validation, positive control, limitations and the path to LIC-scale data.</p>
+          <p><a href="#">Download PDF</a></p>
+        </div>
+        <div class="card">
+          <h3>Three-minute walkthrough</h3>
+          <p>A short screen recording of the pipeline and the demo.</p>
+          <p><a href="#">Watch the video</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Built on published science</h2>
+      <p>
+        The anchor is Reynolds et al. (2021), <em>Non-additive association analysis using
+        proxy phenotypes identifies novel cattle syndromes</em>, Nature Genetics 53, 949-954.
+        The POC extends that proxy-phenotype idea with a modern ML and translation layer.
+      </p>
+      <p class="caption">
+        Data: https://datadryad.org/dataset/doi:10.5061/dryad.kwh70rz1z. Code and results are
+        reproducible from the public repository.
+      </p>
+    </section>
+
+    <footer>
+      <p>ProxyPheno - a proof of concept by Manju Vallayil. Discovery-support only; not a diagnostic tool.</p>
+    </footer>
+  </body>
+</html>
