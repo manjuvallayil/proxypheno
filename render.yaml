@@ -4,4 +4,4 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run deploy/hf_space/app.py --server.port $PORT --server.address 0.0.0.0
+    startCommand: streamlit run deploy/streamlit/app.py --server.port $PORT --server.address 0.0.0.0
