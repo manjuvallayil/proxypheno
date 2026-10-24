@@ -42,6 +42,10 @@ make compare   # Ridge vs LightGBM vs MLP comparison
 make app       # launch the Streamlit demo
 ```
 
+## Report
+
+A four-page technical report is at [`reports/proxypheno_report.pdf`](reports/proxypheno_report.pdf).
+
 ## Results
 
 - 80,027 animals, 19 traits; 16 used for novelty after excluding three with >10% missingness.

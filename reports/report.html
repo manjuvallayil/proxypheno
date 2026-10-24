@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ProxyPheno - technical report</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+         color: #17222c; line-height: 1.5; font-size: 10.5pt; max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 26pt; line-height: 1.1; margin: 0 0 6px; letter-spacing: -0.02em; }
+  h2 { font-size: 15pt; margin: 26px 0 8px; border-bottom: 1px solid #d9e1e8; padding-bottom: 4px; }
+  h3 { font-size: 11.5pt; margin: 18px 0 6px; }
+  p { margin: 0 0 10px; }
+  .sub { color: #5b6b7a; font-size: 11pt; margin-bottom: 22px; }
+  .meta { color: #5b6b7a; font-size: 9pt; }
+  .callout { border-left: 3px solid #1f6f5c; background: #f1f7f5; padding: 10px 14px; margin: 14px 0; }
+  .warn { border-left: 3px solid #b06a1f; background: #fbf5ec; padding: 10px 14px; margin: 14px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0 14px; font-size: 9.5pt; }
+  th, td { text-align: left; border-bottom: 1px solid #e3e9ee; padding: 6px 8px; vertical-align: top; }
+  th { background: #f7f9fb; }
+  .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .fig { border: 1px solid #d9e1e8; border-radius: 6px; padding: 8px; }
+  .fig img { width: 100%; height: auto; display: block; }
+  .cap { color: #5b6b7a; font-size: 8.5pt; margin-top: 5px; }
+  code { background: #eef3f6; padding: 1px 4px; border-radius: 3px; font-size: 9pt; }
+  .pagebreak { page-break-before: always; }
+  ul { margin: 6px 0 10px 18px; padding: 0; }
+  li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<h1>ProxyPheno</h1>
+<div class="sub">An ML proxy-phenotype engine for novel trait discovery in dairy cattle</div>
+<div class="meta">Technical report &middot; Manju Vallayil &middot; 24 October 2026<br/>
+Data: Reynolds et al. (2021), Dryad doi:10.5061/dryad.kwh70rz1z &middot;
+Code: github.com/manjuvallayil/proxypheno</div>
+
+<h2>Executive summary</h2>
+<p>
+Routine dairy measurements already contain latent signal about traits that are expensive
+or impossible to measure at population scale. ProxyPheno models the joint distribution of
+routine phenotypes, scores how unexpected each animal's multi-trait profile is, and groups
+animals by the trait that drives their unusualness. The proof of concept runs on the open
+deposit behind Reynolds et al. (2021), <em>Non-additive association analysis using proxy
+phenotypes identifies novel cattle syndromes</em> (Nature Genetics 53:949-954), whose
+co-authors include the LIC research director.
+</p>
+<div class="callout">
+<strong>What works.</strong> 80,027 animals, 19 traits, 22 interpretable signatures.
+Novelty rankings are stable (Spearman 0.988; top-5% Jaccard 0.783 across 10 bootstrap
+refits). The prospective calf study reproduces the PLCD4 bodyweight effect (-25.9%;
+95% CI -62.3 to -39.4 kg). The chr14 casein region is recovered in milk and protein
+tails (q &lt; 1e-100), including within breed.
+</div>
+<div class="warn">
+<strong>What does not work as expected.</strong> The deposited bodyweight yield deviations
+attenuate the 2021 bodyweight QTL effects, so discovery-population bodyweight enrichment
+is not a valid positive control. This is reported rather than hidden. The linear baseline
+is also strong: LightGBM improves mean R&sup2; only from 0.479 to 0.488.
+</div>
+
+<h2>1. Data</h2>
+<p>
+The deposit contains 19 growth, production and conformation traits for 80,027 animals,
+plus genotype matrices and supporting pedigree and GWAS files. Phenotypes are
+<strong>pre-adjusted yield deviations</strong>; herd, year and parity adjustment must not
+be re-run. The <code>rinverse</code> column is a reliability weight.
+</p>
+<table>
+<tr><th>Block</th><th>Contents</th><th>Use here</th></tr>
+<tr><td><code>phen_1.*</code></td><td>Bodyweight, stature, BCS</td><td>Discovery traits</td></tr>
+<tr><td><code>phen_4.*</code></td><td>16 production and conformation traits</td><td>Discovery traits</td></tr>
+<tr><td><code>phen_3.1</code></td><td>568 calves, 51 herds, four variants</td><td>Prospective positive control</td></tr>
+<tr><td><code>gen_3.*</code></td><td>One SNP per prioritised mutation, 80,027 animals</td><td>Carrier enrichment</td></tr>
+<tr><td><code>other_1.*</code></td><td>Dominance GWAS summary statistics</td><td>Mutation confirmation</td></tr>
+</table>
+<p>
+The 12 prioritised mutations are the top dominance signals in the GWAS (e.g. chr2:107313998,
+B<sub>D</sub> = 54.5; chr28:1312334, B<sub>D</sub> = 55.2; chr29:44213160, B<sub>D</sub> = 30.6).
+Genotype and phenotype tables are joined on <code>ID</code>; row order differs and is never assumed.
+</p>
+
+<h2>2. Method</h2>
+<ol>
+<li>Load the 19 traits; drop three with &gt;10% missingness from the novelty model
+(<code>adaptability_milking</code>, <code>shed_temperament</code>, <code>farmer_opinion</code>).</li>
+<li>Iteratively impute the remaining 16 traits and robust-scale them.</li>
+<li>For each trait, fit a cross-fitted Ridge residual conditional on the other 15 traits.
+This is the proxy-phenotype signal: how unexpected a trait is given the rest of the profile.</li>
+<li>Robust-scale the residuals; reduce with PCA (95% variance); score novelty with
+PCA-space Mahalanobis distance and IsolationForest, combined into a percentile score.</li>
+<li>HDBSCAN found no density-separated clusters: the residual space is a single,
+approximately Gaussian continuum. Rather than force clusters, label each animal by its
+dominant residual trait and direction (<code>low_</code>/<code>high_</code>), with a
+|z| &ge; 3 threshold; the rest are <code>diffuse</code>.</li>
+<li>Test the 12 prioritised mutations for carrier enrichment in trait tails, signatures and
+the top-5% novelty set, with Benjamini-Hochberg control within each analysis.</li>
+<li>Compare Ridge, LightGBM and a small MLP on an identical 80/20 split.</li>
+<li>Generate deterministic, template-based briefs from the structured results. The JSON
+contract is LLM-ready; no live model call is made and no number is generated.</li>
+</ol>
+
+<h2>3. Results</h2>
+<h3>3.1 Novelty and signatures</h3>
+<p>
+The 16-trait residual space is a continuum, not a set of natural clusters. The novelty
+score is therefore a ranking, and the signature is the interpretable unit. There are 22
+signatures with at least 30 animals; 76,652 animals are diffuse. The largest signatures
+include <code>low_dairy_conformation</code> (n = 297), <code>high_rear_teat_placement</code>
+(n = 266) and <code>high_bcs</code> (n = 255).
+</p>
+<div class="figs">
+  <div class="fig"><img src="figures/pca_novelty.png" alt="PCA novelty" />
+    <div class="cap">Residual phenotype space, coloured by novelty score. The space is a single continuum.</div></div>
+  <div class="fig"><img src="figures/signature_counts.png" alt="Signature counts" />
+    <div class="cap">Largest dominant-trait signatures.</div></div>
+</div>
+
+<h3>3.2 Stability</h3>
+<p>
+Ten bootstrap refits (80% subsamples) give a mean Spearman correlation of <strong>0.988</strong>
+(SD 0.001) and a top-5% Jaccard overlap of <strong>0.783</strong>. The ranking is not an
+artefact of one fit.
+</p>
+
+<h3>3.3 Positive controls</h3>
+<p>
+The prospective calf study is the clean test: PLCD4 carriers weigh <strong>147.1 kg</strong>
+versus <strong>198.4 kg</strong> for controls, a <strong>-25.9%</strong> difference
+(95% CI -62.3 to -39.4 kg; 9 carriers vs 526 controls). This reproduces the published
+effect. In the discovery population, the chr14 casein region (mut_06/07/08) is strongly
+enriched in milk and protein tails (e.g. mut_07 high milk OR 6.8, q &asymp; 1e-170) and
+persists within Holstein-Friesian and Jersey.
+</p>
+<div class="figs">
+  <div class="fig"><img src="figures/calf_positive_control.png" alt="Calf control" />
+    <div class="cap">Prospective calf study: PLCD4 carriers weigh 25.9% less than controls.</div></div>
+  <div class="fig"><img src="figures/tail_enrichment.png" alt="Tail enrichment" />
+    <div class="cap">Carrier enrichment in trait tails, -log10(q). The chr14 casein block dominates milk and protein.</div></div>
+</div>
+<div class="warn">
+<strong>Bodyweight caveat.</strong> The deposited <code>yd_trait</code> is attenuated for the
+2021 bodyweight loci (PLCD4 homozygotes differ by roughly 3 kg, not 50 kg). Discovery-population
+bodyweight enrichment is therefore not a valid positive control, and is not claimed.
+</div>
+
+<h3>3.4 Baseline vs ML</h3>
+<p>
+On an identical 80/20 hold-out, LightGBM reaches a mean R&sup2; of <strong>0.488</strong>,
+the MLP <strong>0.481</strong> and Ridge <strong>0.479</strong>. LightGBM wins on 14 of 16
+traits, but the linear baseline is already strong; the ML gain is modest and consistent,
+not a step change. That is the honest result.
+</p>
+<div class="figs">
+  <div class="fig"><img src="figures/model_comparison.png" alt="Model comparison" />
+    <div class="cap">Mean R&sup2; across 16 traits on the same split.</div></div>
+  <div class="fig"><img src="figures/novelty_hist.png" alt="Novelty histogram" />
+    <div class="cap">Novelty score distribution; the top 5% threshold is 0.946.</div></div>
+</div>
+
+<h2>4. What this is not</h2>
+<ul>
+<li>Not a new causal variant. The output is a ranked set of discovery-support hypotheses.</li>
+<li>Not a claim that ML beats established genetic models. The gain here is small.</li>
+<li>Not a diagnosis. GenAI-style briefs translate structured results; they do not diagnose.</li>
+<li>Not a claim that the open deposit equals LIC production data.</li>
+<li>Not production-ready. Held-out herd/year validation and conformal coverage are next.</li>
+</ul>
+
+<h2>5. Path to LIC data</h2>
+<p>
+The design assumes 10<sup>5</sup>-10<sup>6</sup> animals. The pipeline is phenotype-first,
+uses columnar storage, and reads genotypes in chunks; it does not require the full genotype
+matrix in memory. The next steps on internal data are: (1) reproduce the conditional-residual
+baseline on LIC phenotypes, (2) agree trait priorities with genetics and animal health,
+(3) add held-out herd/year validation and conformal intervals, (4) nominate one candidate
+phenotype for formal validation, and (5) connect the brief layer to an internal LLM with
+the same structured contract.
+</p>
+
+<h2>6. Reproducibility</h2>
+<p>
+The public repository contains the package, tests, precomputed artifacts and figures.
+Commands: <code>make setup</code>, <code>make test</code>, <code>make pipeline</code>,
+<code>make compare</code>, <code>make app</code>. The Dryad deposit is not redistributed;
+download it manually and place it at <code>data/raw/</code> or a sibling <code>dryad/</code>
+folder. The pipeline runs in about 21 seconds after download; the model comparison adds
+about one minute.
+</p>
+
+<p class="meta">
+Anchor: Reynolds, E.G.M., Neeley, C., Lopdell, T.J., Keehan, M., Dittmer, K., Harland, C.S.,
+Couldrey, C., Johnson, T.J.J., Tiplady, K., Worth, G., Walker, M., Davis, S.R., Sherlock, R.G.,
+Carnie, K., Harris, B.L., Charlier, C., Georges, M., Spelman, R.J., Garrick, D.J., Littlejohn, M.D.
+(2021). Non-additive association analysis using proxy phenotypes identifies novel cattle
+syndromes. Nature Genetics 53, 949-954. doi:10.1038/s41588-021-00872-5.
+</p>
+
+</body>
+</html>
